@@ -3,35 +3,471 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Page</title>
+    <title>Eloré Studios | AI-Powered Music Catalog Growth</title>
+    <meta name="description" content="Eloré Studios provides a turnkey AI solution for catalog owners to grow revenue via covers, remixes, and partnerships — strategic, legal, and cost-effective.">
+    <meta property="og:title" content="Eloré Studios | AI-Powered Music Catalog Growth">
+    <meta property="og:description" content="Turnkey AI solution for catalog owners. Covers, remixes, translations, synch licensing, and digital marketing.">
+    <meta property="og:type" content="website">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding: 50px;
+        :root {
+            --navy: #1a2744;
+            --navy-dark: #0f1a2e;
+            --gold: #c9922a;
+            --gold-light: #d4a63e;
+            --cream: #faf6ed;
+            --cream-dark: #f0e8d8;
+            --text: #2c3e50;
+            --text-light: #5a6a7a;
         }
-        img {
-    width: 100vw;   /* full viewport width */
-    height: auto;   /* keeps correct proportions */
-    display: block;
-    margin: 0 auto;
-}
 
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Inter', sans-serif; color: var(--text); background: #fff; }
+
+        /* Nav */
+        .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 9999; padding: 18px 40px; display: flex; justify-content: space-between; align-items: center; transition: all .3s; }
+        .nav.scrolled { background: rgba(15,26,46,.97); backdrop-filter: blur(12px); box-shadow: 0 2px 30px rgba(0,0,0,.15); padding: 12px 40px; }
+        .nav-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+        .nav-brand svg { height: 36px; width: auto; }
+        .nav-brand span { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: #fff; font-weight: 700; letter-spacing: 2px; }
+        .nav-links { display: flex; gap: 28px; align-items: center; }
+        .nav-links a { color: rgba(255,255,255,.85); text-decoration: none; font-size: .82rem; font-weight: 500; letter-spacing: .8px; text-transform: uppercase; transition: color .2s; }
+        .nav-links a:hover { color: var(--gold); }
+        .nav-cta { background: var(--gold) !important; color: var(--navy-dark) !important; padding: 10px 22px; border-radius: 4px; font-weight: 700 !important; }
+        .nav-cta:hover { background: var(--gold-light) !important; }
+        .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; }
+        .hamburger span { width: 26px; height: 2px; background: #fff; }
+
+        /* Hero */
+        .hero { min-height: 100vh; background: linear-gradient(135deg, var(--navy-dark), var(--navy)); display: flex; align-items: center; justify-content: center; text-align: center; position: relative; overflow: hidden; }
+        .hero::before { content: ''; position: absolute; top: -50%; right: -30%; width: 80%; height: 200%; background: radial-gradient(circle, rgba(201,146,42,.08) 0%, transparent 60%); }
+        .hero::after { content: ''; position: absolute; bottom: -20%; left: -20%; width: 60%; height: 100%; background: radial-gradient(circle, rgba(201,146,42,.05) 0%, transparent 50%); }
+        .hero-content { max-width: 800px; padding: 20px; position: relative; z-index: 1; }
+        .hero-logo { margin-bottom: 30px; }
+        .hero-logo svg { height: 80px; }
+        .hero-eyebrow { display: inline-block; background: rgba(201,146,42,.12); border: 1px solid rgba(201,146,42,.25); padding: 8px 20px; border-radius: 50px; color: var(--gold); font-size: .8rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 24px; }
+        .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.4rem, 5.5vw, 4rem); color: #fff; margin-bottom: 20px; line-height: 1.1; font-weight: 700; }
+        .hero h1 em { font-style: italic; color: var(--gold); }
+        .hero p { color: rgba(255,255,255,.7); font-size: 1.1rem; margin-bottom: 36px; font-weight: 300; line-height: 1.7; max-width: 620px; margin-left: auto; margin-right: auto; }
+        .hero-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+        .btn { padding: 14px 34px; border-radius: 4px; text-decoration: none; font-weight: 600; font-size: .95rem; transition: all .2s; display: inline-block; letter-spacing: .5px; }
+        .btn-primary { background: var(--gold); color: var(--navy-dark); }
+        .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 8px 25px rgba(201,146,42,.3); }
+        .btn-outline { border: 1.5px solid rgba(255,255,255,.4); color: #fff; }
+        .btn-outline:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
+
+        /* Section base */
+        .section { padding: 90px 20px; }
+        .section-cream { background: var(--cream); }
+        .section-navy { background: var(--navy); color: #fff; }
+        .container { max-width: 1100px; margin: 0 auto; }
+        .section-eyebrow { font-size: .75rem; text-transform: uppercase; letter-spacing: 3px; color: var(--gold); text-align: center; margin-bottom: 8px; font-weight: 600; }
+        .section-title { font-family: 'Playfair Display', serif; font-size: 2.2rem; text-align: center; margin-bottom: 20px; font-weight: 700; }
+        .section-navy .section-title { color: #fff; }
+        .section-subtitle { text-align: center; color: var(--text-light); font-size: 1.05rem; font-weight: 300; line-height: 1.7; max-width: 650px; margin: 0 auto 50px; }
+        .section-navy .section-subtitle { color: rgba(255,255,255,.65); }
+        .deco-line { width: 50px; height: 2px; background: var(--gold); margin: 0 auto 16px; }
+
+        /* Problem section */
+        .problem-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; text-align: center; margin-top: 40px; }
+        .problem-icon { font-size: 3rem; margin-bottom: 12px; }
+        .problem-plus { font-size: 2.5rem; color: var(--navy); display: flex; align-items: center; justify-content: center; font-weight: 700; }
+        .problem-equals { font-size: 2.5rem; color: var(--navy); display: flex; align-items: center; justify-content: center; font-weight: 700; }
+
+        /* Services */
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 28px; }
+        .service-card { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.08); padding: 36px 24px; border-radius: 10px; text-align: center; transition: transform .2s, border-color .2s; }
+        .service-card:hover { transform: translateY(-4px); border-color: rgba(201,146,42,.3); }
+        .service-icon { font-size: 2.2rem; margin-bottom: 16px; }
+        .service-card h3 { font-family: 'Playfair Display', serif; margin-bottom: 10px; color: #fff; font-size: 1.15rem; }
+        .service-card p { color: rgba(255,255,255,.6); font-size: .88rem; line-height: 1.7; }
+
+        /* Revenue streams */
+        .revenue-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        .revenue-card { text-align: center; padding: 30px 20px; }
+        .revenue-icon { font-size: 2.8rem; margin-bottom: 14px; }
+        .revenue-card h3 { font-family: 'Playfair Display', serif; margin-bottom: 8px; color: var(--navy); }
+        .revenue-card p { color: var(--text-light); font-size: .9rem; line-height: 1.6; }
+
+        /* Process */
+        .process-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; counter-reset: step; }
+        .process-step { text-align: center; position: relative; }
+        .process-step::before { counter-increment: step; content: counter(step); display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; background: var(--gold); color: var(--navy-dark); font-weight: 700; border-radius: 50%; margin: 0 auto 16px; font-size: .9rem; }
+        .process-icon { font-size: 2rem; margin-bottom: 12px; }
+        .process-step h3 { font-family: 'Playfair Display', serif; font-size: 1.05rem; margin-bottom: 8px; color: var(--navy); }
+        .process-step p { color: var(--text-light); font-size: .85rem; line-height: 1.6; }
+
+        /* Comparison */
+        .compare-grid { display: grid; grid-template-columns: 1fr 1fr; border-radius: 12px; overflow: hidden; box-shadow: 0 8px 30px rgba(0,0,0,.1); }
+        .compare-col { padding: 40px 36px; }
+        .compare-traditional { background: var(--cream); }
+        .compare-ai { background: var(--navy); color: #fff; }
+        .compare-col h3 { font-family: 'Playfair Display', serif; font-size: 1.5rem; margin-bottom: 24px; }
+        .compare-ai h3 { color: var(--gold); }
+        .compare-row { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid rgba(0,0,0,.08); }
+        .compare-ai .compare-row { border-color: rgba(255,255,255,.1); }
+        .compare-label { font-weight: 500; }
+        .compare-value { font-weight: 700; }
+        .compare-ai .compare-value { color: var(--gold); }
+        .compare-highlight { margin-top: 20px; padding: 16px; border-radius: 8px; text-align: center; font-weight: 700; font-size: 1.1rem; }
+        .compare-traditional .compare-highlight { background: rgba(0,0,0,.04); color: var(--text-light); }
+        .compare-ai .compare-highlight { background: rgba(201,146,42,.15); color: var(--gold); }
+
+        /* Stats */
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 24px; margin-top: 40px; }
+        .stat-card { background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.08); padding: 28px 20px; border-radius: 10px; text-align: center; }
+        .stat-value { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--gold); font-weight: 700; margin-bottom: 6px; }
+        .stat-label { color: rgba(255,255,255,.6); font-size: .82rem; line-height: 1.5; }
+
+        /* Big quote */
+        .big-quote { text-align: center; max-width: 800px; margin: 0 auto; }
+        .big-quote p { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--navy); line-height: 1.4; font-weight: 600; margin-bottom: 16px; }
+        .big-quote span { color: var(--gold); font-size: 1rem; font-family: 'Inter', sans-serif; font-weight: 400; }
+
+        /* Contact form */
+        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: start; }
+        .contact-info h3 { font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-bottom: 16px; color: #fff; }
+        .contact-info p { color: rgba(255,255,255,.65); line-height: 1.7; margin-bottom: 24px; }
+        .contact-detail { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; color: rgba(255,255,255,.7); }
+        .contact-detail svg { flex-shrink: 0; }
+        .contact-detail a { color: var(--gold); text-decoration: none; }
+        .contact-form { display: flex; flex-direction: column; gap: 16px; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        .contact-form input, .contact-form textarea, .contact-form select {
+            background: rgba(255,255,255,.06);
+            border: 1px solid rgba(255,255,255,.12);
+            padding: 14px 16px;
+            border-radius: 6px;
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            font-size: .9rem;
+            transition: border-color .2s;
+            width: 100%;
         }
-        a.email {
-            display: inline-block;
-            margin-top: 20px;
-            font-size: 20px;
-            color: #333;
-            text-decoration: none;
+        .contact-form input::placeholder, .contact-form textarea::placeholder { color: rgba(255,255,255,.35); }
+        .contact-form input:focus, .contact-form textarea:focus, .contact-form select:focus { outline: none; border-color: var(--gold); }
+        .contact-form select option { background: var(--navy-dark); color: #fff; }
+        .contact-form textarea { resize: vertical; min-height: 100px; }
+        .contact-form button { background: var(--gold); color: var(--navy-dark); border: none; padding: 14px 34px; border-radius: 4px; font-weight: 700; font-size: .95rem; cursor: pointer; transition: all .2s; letter-spacing: .5px; }
+        .contact-form button:hover { background: var(--gold-light); transform: translateY(-2px); }
+
+        /* Footer */
+        footer { background: var(--navy-dark); color: rgba(255,255,255,.5); padding: 40px 20px; text-align: center; border-top: 1px solid rgba(255,255,255,.06); }
+        footer a { color: var(--gold); text-decoration: none; }
+        footer .footer-brand { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: #fff; letter-spacing: 2px; margin-bottom: 8px; }
+
+        /* Animations */
+        .fade-in { opacity: 0; transform: translateY(20px); transition: opacity .6s, transform .6s; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .nav-links { position: fixed; top: 0; right: -100%; height: 100vh; width: 70%; background: var(--navy-dark); flex-direction: column; justify-content: center; padding: 40px; transition: .3s; }
+            .nav-links.open { right: 0; }
+            .hamburger { display: flex; }
+            .problem-grid { grid-template-columns: 1fr; }
+            .problem-plus, .problem-equals { display: none; }
+            .revenue-grid { grid-template-columns: 1fr; }
+            .process-grid { grid-template-columns: 1fr 1fr; }
+            .compare-grid { grid-template-columns: 1fr; }
+            .contact-grid { grid-template-columns: 1fr; }
+            .form-row { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 2.2rem; }
+            .big-quote p { font-size: 1.4rem; }
         }
     </style>
 </head>
 <body>
+    <!-- Nav -->
+    <nav class="nav" id="navbar">
+        <a href="#" class="nav-brand">
+            <svg viewBox="0 0 40 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="20" cy="18" r="6" fill="#c9922a"/>
+                <rect x="18" y="4" width="1.5" height="10" rx=".75" fill="#c9922a"/>
+                <rect x="21" y="2" width="1.5" height="12" rx=".75" fill="#c9922a"/>
+                <rect x="24" y="6" width="1.5" height="8" rx=".75" fill="#c9922a"/>
+                <rect x="14" y="6" width="1.5" height="8" rx=".75" fill="#c9922a"/>
+                <rect x="11" y="8" width="1.5" height="6" rx=".75" fill="#c9922a"/>
+                <rect x="27" y="8" width="1.5" height="6" rx=".75" fill="#c9922a"/>
+                <path d="M8 28 C13 25, 17 31, 20 28 C23 25, 27 31, 32 28" stroke="#1a2744" stroke-width="2" fill="none" stroke-linecap="round"/>
+                <path d="M8 33 C13 30, 17 36, 20 33 C23 30, 27 36, 32 33" stroke="#1a2744" stroke-width="2" fill="none" stroke-linecap="round"/>
+                <path d="M10 38 C14 35.5, 17 40.5, 20 38 C23 35.5, 26 40.5, 30 38" stroke="#1a2744" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+            </svg>
+            <span>ELORE STUDIOS</span>
+        </a>
+        <div class="nav-links" id="navLinks">
+            <a href="#solution">Solution</a>
+            <a href="#process">Process</a>
+            <a href="#numbers">Numbers</a>
+            <a href="#contact" class="nav-cta">Get Started</a>
+        </div>
+        <button class="hamburger" onclick="document.getElementById('navLinks').classList.toggle('open')" aria-label="Menu">
+            <span></span><span></span><span></span>
+        </button>
+    </nav>
 
-    <a href="mailto:salo.sterental@gmail.com">
-    <img src="https://raw.githubusercontent.com/ssterental/elorestudios/main/C%20(2).png" alt="My Photo">
-</a>
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-logo">
+                <svg viewBox="0 0 40 50" fill="none" xmlns="http://www.w3.org/2000/svg" height="70">
+                    <circle cx="20" cy="18" r="6" fill="#c9922a"/>
+                    <rect x="18" y="4" width="1.5" height="10" rx=".75" fill="#c9922a"/>
+                    <rect x="21" y="2" width="1.5" height="12" rx=".75" fill="#c9922a"/>
+                    <rect x="24" y="6" width="1.5" height="8" rx=".75" fill="#c9922a"/>
+                    <rect x="14" y="6" width="1.5" height="8" rx=".75" fill="#c9922a"/>
+                    <rect x="11" y="8" width="1.5" height="6" rx=".75" fill="#c9922a"/>
+                    <rect x="27" y="8" width="1.5" height="6" rx=".75" fill="#c9922a"/>
+                    <path d="M8 28 C13 25, 17 31, 20 28 C23 25, 27 31, 32 28" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round"/>
+                    <path d="M8 33 C13 30, 17 36, 20 33 C23 30, 27 36, 32 33" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round"/>
+                    <path d="M10 38 C14 35.5, 17 40.5, 20 38 C23 35.5, 26 40.5, 30 38" stroke="#fff" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                </svg>
+            </div>
+            <div class="hero-eyebrow">AI + Music Catalogs</div>
+            <h1>Unlock Your Catalog's <em>Full Potential</em></h1>
+            <p>A turnkey AI solution for catalog owners to grow revenue via covers, remixes, translations, and partnerships — strategic, legal, and cost-effective.</p>
+            <div class="hero-buttons">
+                <a href="#contact" class="btn btn-primary">Start a Conversation</a>
+                <a href="#solution" class="btn btn-outline">Learn More</a>
+            </div>
+        </div>
+    </section>
 
+    <!-- Problem -->
+    <section class="section section-cream">
+        <div class="container">
+            <p class="section-eyebrow">The Opportunity</p>
+            <div class="deco-line"></div>
+            <h2 class="section-title">AI is Changing the Music Industry</h2>
+            <p class="section-subtitle">If you're not implementing an AI strategy, you're falling behind your competitors and leaving money on the table.</p>
+        </div>
+    </section>
+
+    <!-- Solution -->
+    <section id="solution" class="section section-navy">
+        <div class="container">
+            <p class="section-eyebrow">What We Do</p>
+            <div class="deco-line"></div>
+            <h2 class="section-title">A Turnkey Solution for Catalog Owners</h2>
+            <p class="section-subtitle">Leverage AI to grow catalog revenue and unlock more asset value via covers, remixes, and partnerships.</p>
+            <div class="services-grid">
+                <div class="service-card fade-in">
+                    <div class="service-icon">🎧</div>
+                    <h3>Music Strategy & A&R</h3>
+                    <p>We guide you through AI opportunities, identify the right songs, and build a strategic framework for maximum impact.</p>
+                </div>
+                <div class="service-card fade-in">
+                    <div class="service-icon">🎤</div>
+                    <h3>AI Production</h3>
+                    <p>Our creative team produces AI covers, translations, and remixes — high quality, legally compliant, and on-brand.</p>
+                </div>
+                <div class="service-card fade-in">
+                    <div class="service-icon">🎬</div>
+                    <h3>Video Creation</h3>
+                    <p>AI video partners create optimized visual assets to boost algorithmic performance across YouTube and social platforms.</p>
+                </div>
+                <div class="service-card fade-in">
+                    <div class="service-icon">📣</div>
+                    <h3>Digital Marketing</h3>
+                    <p>Data-driven marketing partners push winners via digital ads and influencers, doubling down on growth and outsized returns.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Revenue Streams -->
+    <section class="section section-cream">
+        <div class="container">
+            <p class="section-eyebrow">The Upside</p>
+            <div class="deco-line"></div>
+            <h2 class="section-title">Unlock New Revenue Streams</h2>
+            <p class="section-subtitle">Catalog partners can unlock revenue from multiple channels with AI-powered content.</p>
+            <div class="revenue-grid">
+                <div class="revenue-card fade-in">
+                    <div class="revenue-icon">🎵</div>
+                    <h3>Master Streaming Royalties</h3>
+                    <p>Generate new master recordings that earn streaming royalties on every platform — incremental revenue from your existing catalog.</p>
+                </div>
+                <div class="revenue-card fade-in">
+                    <div class="revenue-icon">🎬</div>
+                    <h3>Synch Licensing</h3>
+                    <p>Build a broader library with AI covers and translations to win more synch deals and own the revenue splits.</p>
+                </div>
+                <div class="revenue-card fade-in">
+                    <div class="revenue-icon">📱</div>
+                    <h3>Digital App Licensing</h3>
+                    <p>Create covers and translations tailored to app ecosystems — Zumba, Calm, fitness apps — for direct licensing and co-marketing partnerships.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process -->
+    <section id="process" class="section">
+        <div class="container">
+            <p class="section-eyebrow">How It Works</p>
+            <div class="deco-line"></div>
+            <h2 class="section-title">Our Process</h2>
+            <p class="section-subtitle">From strategy to distribution, we handle everything.</p>
+            <div class="process-grid">
+                <div class="process-step fade-in">
+                    <div class="process-icon">🤝</div>
+                    <h3>Strategy</h3>
+                    <p>We collaborate with your catalog team to understand goals, identify opportunities, and select songs to cover or translate.</p>
+                </div>
+                <div class="process-step fade-in">
+                    <div class="process-icon">🧠</div>
+                    <h3>Production</h3>
+                    <p>Our creative team gets to work, producing various AI versions as per the scope of work.</p>
+                </div>
+                <div class="process-step fade-in">
+                    <div class="process-icon">🎥</div>
+                    <h3>Video</h3>
+                    <p>After songs are approved, we create optimized videos with our partners — quality and platform optimization guaranteed.</p>
+                </div>
+                <div class="process-step fade-in">
+                    <div class="process-icon">📣</div>
+                    <h3>Marketing</h3>
+                    <p>Once distributed, we engage marketing partners across digital ads and influencers to push the content and maximize returns.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cost Comparison -->
+    <section class="section section-cream">
+        <div class="container">
+            <p class="section-eyebrow">The Economics</p>
+            <div class="deco-line"></div>
+            <h2 class="section-title">Traditional vs. AI Framework</h2>
+            <p class="section-subtitle">Test 10-30 songs for the price of one traditional production — low risk, high reward.</p>
+            <div class="compare-grid fade-in">
+                <div class="compare-col compare-traditional">
+                    <h3>Traditional</h3>
+                    <div class="compare-row"><span class="compare-label">Production</span><span class="compare-value">$5K-$25K</span></div>
+                    <div class="compare-row"><span class="compare-label">Video</span><span class="compare-value">$5K-$15K</span></div>
+                    <div class="compare-row"><span class="compare-label">Project Mgmt</span><span class="compare-value">$1K-$5K</span></div>
+                    <div class="compare-row"><span class="compare-label">Marketing</span><span class="compare-value">???</span></div>
+                    <div class="compare-highlight">Break Even: 3M-13M Streams</div>
+                </div>
+                <div class="compare-col compare-ai">
+                    <h3>AI Framework</h3>
+                    <div class="compare-row"><span class="compare-label">Production</span><span class="compare-value">$100-$1K</span></div>
+                    <div class="compare-row"><span class="compare-label">Video</span><span class="compare-value">$100-$1K</span></div>
+                    <div class="compare-row"><span class="compare-label">Project Mgmt</span><span class="compare-value">$500-$2.5K</span></div>
+                    <div class="compare-row"><span class="compare-label">Marketing</span><span class="compare-value">$1K-$5K</span></div>
+                    <div class="compare-highlight">Break Even: 170K Streams</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Numbers -->
+    <section id="numbers" class="section section-navy">
+        <div class="container">
+            <p class="section-eyebrow">The Numbers</p>
+            <div class="deco-line"></div>
+            <h2 class="section-title">The Market Opportunity is Massive</h2>
+            <p class="section-subtitle">Listeners want covers and remixes — the data proves it.</p>
+            <div class="stats-grid">
+                <div class="stat-card fade-in">
+                    <div class="stat-value">10%</div>
+                    <div class="stat-label">of YouTube revenue comes from Covers & Remixes</div>
+                </div>
+                <div class="stat-card fade-in">
+                    <div class="stat-value">>70%</div>
+                    <div class="stat-label">of Spotify streams come from catalog music</div>
+                </div>
+                <div class="stat-card fade-in">
+                    <div class="stat-value">10B+</div>
+                    <div class="stat-label">streams from Spotify Singles (official covers project)</div>
+                </div>
+                <div class="stat-card fade-in">
+                    <div class="stat-value">97%</div>
+                    <div class="stat-label">of people can't tell the difference between AI and human music (Deezer)</div>
+                </div>
+                <div class="stat-card fade-in">
+                    <div class="stat-value">1 in 5</div>
+                    <div class="stat-label">covers meaningfully revive the original song's streaming numbers</div>
+                </div>
+                <div class="stat-card fade-in">
+                    <div class="stat-value">10-30x</div>
+                    <div class="stat-label">more songs tested for the price of one traditional production</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Big quote -->
+    <section class="section section-cream">
+        <div class="container">
+            <div class="big-quote fade-in">
+                <p>A song is 10-15X more likely to reach 300K streams than 3M streams — making our framework <em style="color:var(--gold)">low risk, high reward</em></p>
+                <span>With our AI framework, we give you many more chances at virality</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="section section-navy">
+        <div class="container">
+            <p class="section-eyebrow">Get Started</p>
+            <div class="deco-line"></div>
+            <h2 class="section-title">Let's Talk About Your Catalog</h2>
+            <div class="contact-grid">
+                <div class="contact-info fade-in">
+                    <h3>Let's Partner Up</h3>
+                    <p>We offer flexible partnership structures tailored to your catalog's needs. Reach out and let's discuss how we can grow your catalog revenue together.</p>
+                    <div style="margin-top:30px;">
+                        <div class="contact-detail">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                            <a href="mailto:salo.sterental@gmail.com">salo.sterental@gmail.com</a>
+                        </div>
+                    </div>
+                </div>
+                <form class="contact-form fade-in" action="https://formsubmit.co/salo.sterental@gmail.com" method="POST">
+                    <input type="hidden" name="_subject" value="Eloré Studios — New Inquiry">
+                    <input type="hidden" name="_captcha" value="false">
+                    <input type="hidden" name="_template" value="table">
+                    <div class="form-row">
+                        <input type="text" name="name" placeholder="Your Name" required>
+                        <input type="email" name="email" placeholder="Email Address" required>
+                    </div>
+                    <input type="text" name="company" placeholder="Company / Label">
+                    <select name="catalog_size">
+                        <option value="" disabled selected>Catalog Size (approx. # of songs)</option>
+                        <option value="Under 100">Under 100 songs</option>
+                        <option value="100-500">100-500 songs</option>
+                        <option value="500-2000">500-2,000 songs</option>
+                        <option value="2000+">2,000+ songs</option>
+                    </select>
+                    <textarea name="message" placeholder="Tell us about your catalog and what you're looking to achieve..." rows="4"></textarea>
+                    <button type="submit">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-brand">ELORE STUDIOS</div>
+        <p>AI-Powered Music Catalog Growth</p>
+        <p style="margin-top:12px;"><a href="mailto:salo.sterental@gmail.com">salo.sterental@gmail.com</a></p>
+        <p style="margin-top:16px;font-size:.75rem;">&copy; 2026 Eloré Studios. All rights reserved.</p>
+    </footer>
+
+    <script>
+        window.addEventListener('scroll', () => {
+            document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+        });
+        const obs = new IntersectionObserver(entries => {
+            entries.forEach(el => {
+                if (el.isIntersecting) { el.target.classList.add('visible'); obs.unobserve(el.target); }
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+    </script>
 </body>
 </html>
